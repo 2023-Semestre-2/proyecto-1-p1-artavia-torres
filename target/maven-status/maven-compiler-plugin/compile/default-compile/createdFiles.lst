@@ -1,4 +1,6 @@
-org/artavia/torres/p1/SecondaryController.class
+org\artavia\torres\p1\PrimaryController.class
+org\artavia\torres\p1\SecondaryController.class
 module-info.class
-org/artavia/torres/p1/PrimaryController.class
-org/artavia/torres/p1/App.class
+org\artavia\torres\p1\Panel.class
+org\artavia\torres\p1\Panel$1.class
+org\artavia\torres\p1\App.class
