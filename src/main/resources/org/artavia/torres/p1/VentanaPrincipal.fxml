@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="651.0" prefWidth="1043.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.artavia.torres.p1.VentanaPrincipalController">
+    <TableView fx:id="tablaMemoria" layoutX="558.0" layoutY="14.0" prefHeight="196.0" prefWidth="229.0">
+        <columns>
+            <TableColumn fx:id="columnaPosMemoria" prefWidth="51.0" text="Pos" />
+            <TableColumn fx:id="columnaValorMemoria" prefWidth="177.0" text="Valor en memoria" />
+        </columns>
+    </TableView>
+    <TableView fx:id="tablaAlmacenamiento" layoutX="800.0" layoutY="14.0" prefHeight="196.0" prefWidth="229.0">
+        <columns>
+            <TableColumn fx:id="columnaPosAlmacenamiento" prefWidth="51.0" text="Pos" />
+            <TableColumn fx:id="columnaValorAlmacenamiento" prefWidth="177.0" text="Valor en disco" />
+        </columns>
+    </TableView>
+   <Button fx:id="automatico" layoutX="33.0" layoutY="41.0" mnemonicParsing="false" onAction="#automatico" text="Automatico" />
+   <Button fx:id="pasoApaso" layoutX="128.0" layoutY="41.0" mnemonicParsing="false" onAction="#pasoApaso" text="Paso a paso" />
+</AnchorPane>

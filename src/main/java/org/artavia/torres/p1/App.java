@@ -5,34 +5,62 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 
 /**
- * JavaFX App
+ * Aplicacion de javafx que simula el comportamiento de una minicomputadora.
  */
 public class App extends Application {
 
-    private static Scene scene;
+    // ============= Parametros ================================================
+    /**
+     * Escena principal de la aplicacion.
+     */
+    private static Scene escenaPrincipal;
 
+    // ============= Constructores =============================================
+    /**
+     * Metodo que ejecuta la aplicacion javafx.
+     *
+     * @param ventanaPrincipal Stage inicial de la aplicacion.
+     */
     @Override
-    public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("primary"), 640, 480);
-        stage.setScene(scene);
-        stage.show();
+    public void start(Stage ventanaPrincipal) throws IOException {
+
+        /**
+         * Se crea la escena con el archivo de configuracion inicial
+         */
+        escenaPrincipal = new Scene(cargarFXML("ConfiguracionInicial"),
+                610, 410);
+
+        /**
+         * Se establece un titulo para la aplicacion
+         */
+        ventanaPrincipal.
+                setTitle("Proyecto 01 SO - Jose Artavia - Dylan Torres");
+
+        ventanaPrincipal.setScene(escenaPrincipal);
+        ventanaPrincipal.show();
+        ventanaPrincipal.centerOnScreen();
+
     }
 
-    static void setRoot(String fxml) throws IOException {
-        scene.setRoot(loadFXML(fxml));
+    // ============= Metodos ===================================================
+    /**
+     * Metodo que se encarga de cargar un archivo fxml.
+     *
+     * @param fxml Nombre de archivo fxml sin la extension.
+     * @return Raiz para una nueva escena
+     */
+    private static Parent cargarFXML(String fxml) throws IOException {
+        FXMLLoader cargadorFxml = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
+        return cargadorFxml.load();
     }
 
-    private static Parent loadFXML(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
-        return fxmlLoader.load();
-    }
-
+    /**
+     * Main de la clase, se ejecuta la aplicacion
+     */
     public static void main(String[] args) {
         launch();
     }
-
 }
