@@ -13,28 +13,28 @@ public class MemoriaModel {
     // ============= Parametros ================================================
     /**
      * HashMap que representa la memoria principal del programa, se utiliza este
-     * tipo de dato para tomar la key como direccion y el direccion para su
-     * direccion.
+     * tipo de dato para tomar la key como direccion y el value para su
+     * contenido.
      */
     private Map<Integer, String> memoriaPrincipal;
 
     /**
      * Numero que representa la cantidad de espacios reservados en memoria para
-     * el sistema fuera del acceso del usuario, se usara un 40% de la memoria.
+     * el sistema, fuera del acceso del usuario, se usara un 40% de la memoria.
      */
     private int reservadoParaSistema;
 
     // ============= Constructores =============================================
     /**
      * Constructor por defecto que inicializa la memoria con 256 espacios con su
-     * direccion vacio
+     * direcciones vacias y una reserva del sistema de 102
      */
     public MemoriaModel() {
         this.memoriaPrincipal = new HashMap<>();
         for (int i = 0; i < 256; i++) {
             this.memoriaPrincipal.put(i, " ");
         }
-        this.reservadoParaSistema = 100;
+        this.reservadoParaSistema = 102;
     }
 
     /**
@@ -57,7 +57,7 @@ public class MemoriaModel {
      *
      * @return Memoria principal.
      */
-    public Map<Integer, String> obtenerMemoria() {
+    public Map<Integer, String> obtenerMemoriaPrincipal() {
         return memoriaPrincipal;
     }
 
@@ -66,7 +66,7 @@ public class MemoriaModel {
      *
      * @param memoriaPrincipal Memoria principal del sistema.
      */
-    public void establecerMemoria(Map<Integer, String> memoriaPrincipal) {
+    public void establecerMemoriaPrincipal(Map<Integer, String> memoriaPrincipal) {
         this.memoriaPrincipal = memoriaPrincipal;
     }
 
@@ -124,7 +124,9 @@ public class MemoriaModel {
         }
 
         //Si no existe suficiente espacio, se imprimer error
-        if (direccionesVacias < instrucciones.size()) {
+        String ultimoContenido = this.memoriaPrincipal.get(this.memoriaPrincipal.size() - 1);
+        if (direccionesVacias < instrucciones.size()
+                || !ultimoContenido.equals(" ")) {
             System.out.println("Espacio en memoria insuficiente para el archivo");
 
             //En caso contrario, se agregan las instrucciones
@@ -139,9 +141,9 @@ public class MemoriaModel {
     /**
      * Agrega una instruccion a la memoria.
      *
-     * @param instruccion.
-     * @param memoria.
-     * @param cantidadInstrucciones.
+     * @param instruccion Instruccion que se guardara en memoria.
+     * @param memoria Memoria principal del sistema.
+     * @param cantidadInstrucciones El numero de instrucciones a guardar.
      */
     private void agregarContenidoAsmAux(
             String instruccion, Map<Integer, String> memoria,
@@ -159,8 +161,8 @@ public class MemoriaModel {
 
         String contenidoUltimaDireccion = " ";
 
-        //Si la memoria no esta vacia, asigna el direccion a la memoria despues de
-        //otro direccion existente
+        //Si la memoria no esta vacia, asigna el contenido a la memoria despues de
+        //otro contenido ya existente
         if (!memoriaVacia) {
             for (Integer direccion : memoria.keySet()) {
                 if (memoria.get(direccion).equals(" ")
@@ -193,6 +195,8 @@ public class MemoriaModel {
         int direccionMin = this.reservadoParaSistema;
         int direccionMax = this.memoriaPrincipal.size() - cantidadInstrucciones;
 
+        //Se genera un aleatorio tomando en cuenta la parte reservada del sistema
+        //como la cantidad de instrucciones que se desean introducir.
         int direccionAleatoria = aleatorio.nextInt(direccionMax - direccionMin + 1)
                 + direccionMin;
         memoria.put(direccionAleatoria, instruccion);
@@ -216,9 +220,9 @@ public class MemoriaModel {
      * Imprime el contenido de la memoria en terminal.
      */
     private void imprimirMemoriaTerminal() {
-        for (Integer direccion : memoriaPrincipal.keySet()) {
+        for (Integer direccion : this.memoriaPrincipal.keySet()) {
             System.out.println(direccion + " | "
-                    + memoriaPrincipal.get(direccion));
+                    + this.memoriaPrincipal.get(direccion));
         }
     }
 }
